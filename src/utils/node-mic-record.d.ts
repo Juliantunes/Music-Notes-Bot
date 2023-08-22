@@ -1,3 +1,5 @@
 declare module 'node-mic-record'
 declare module 'dsp.js'
 declare module 'notejs'
+declare module 'tunajs'
+declare module 'meydajs'
