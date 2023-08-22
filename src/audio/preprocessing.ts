@@ -1,5 +1,5 @@
 import processor from 'dsp.js'
-import Tuna from 'tunajs'
+
 
 export function processAudio(audioData:Buffer) {
     const sampleRate = 44100; 

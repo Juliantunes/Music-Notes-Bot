@@ -1,10 +1,7 @@
 import record from 'node-mic-record'
-import processor from 'dsp.js'
-import pitchFinder from 'pitchfinder'
-import noteFinder from 'notejs'
-import {Readable} from 'stream'
 import { startRecording, stopRecording,pauseRecording, resumeRecording, deleteRecording } from './utils/utilities'
 import { processAudio } from './audio/preprocessing'
+import { NoteDetection } from './audio/NoteDetection'
 
 const fs = require('fs')
 let isRecording = false
@@ -44,7 +41,10 @@ process.stdin.on('data', (input) => {
         resumeRecording()
     } else if (userInput === 'delete') {
         deleteRecording()
+    } else{ 
+        console.log('Unrecognized command')
     }
+    
 })
 // User Input Handling:
 // - `process.stdin.setEncoding('utf8')`: Sets the character encoding for user input.
@@ -62,6 +62,6 @@ fs.readFile(filePath, (err:Error, audioData: Buffer) => {
     }
 
     const processedData = processAudio(audioData)
-    console.log('Processed Data:', processedData)
+    NoteDetection(processedData)
 })
 
