@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteRecording = exports.resumeRecording = exports.pauseRecording = exports.stopRecording = exports.startRecording = void 0;
+exports.hammingWindow = exports.deleteRecording = exports.resumeRecording = exports.pauseRecording = exports.stopRecording = exports.startRecording = void 0;
 const node_mic_record_1 = require("node-mic-record");
 const fs = require('fs');
 const file = fs.createWriteStream('test.wav', { encoding: 'binary' });
@@ -47,3 +47,7 @@ function deleteRecording() {
     }
 }
 exports.deleteRecording = deleteRecording;
+function hammingWindow(length, index) {
+    return 0.54 - 0.46 * Math.cos(2 * Math.PI * index / (length - 1));
+}
+exports.hammingWindow = hammingWindow;

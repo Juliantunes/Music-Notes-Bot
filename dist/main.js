@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const node_mic_record_1 = require("node-mic-record");
+const record = require("node-mic-record");
 const utilities_1 = require("./utils/utilities");
 const preprocessing_1 = require("./audio/preprocessing");
 const NoteDetection_1 = require("./audio/NoteDetection");
@@ -12,11 +12,12 @@ const file = fs.createWriteStream('test.wav', { encoding: 'binary' });
 //create a file so audio can be saved
 //test.wav is common file type for audio
 //encoding is binary because audio is a sequence of numerical values
-const recordingStream = node_mic_record_1.default.start({
+const recordingStream = record.start({
     sampleRate: 44100,
     verbose: true,
     length: 180
-});
+})
+    .pipe(file);
 //calls audio recording process
 recordingStream.on('data', (data) => {
     if (isRecording && !isPaused) {

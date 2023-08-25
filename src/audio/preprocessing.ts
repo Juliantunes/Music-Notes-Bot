@@ -1,4 +1,7 @@
-import processor from 'dsp.js'
+import * as processor from 'window-function'
+import { hammingWindow } from '../utils/utilities';
+import FFT from 'fft-js'
+
 
 
 export function processAudio(audioData:Buffer) {
@@ -13,18 +16,23 @@ export function processAudio(audioData:Buffer) {
     const normalizedAudio =  audioFloats.map(value => value / maxAmplitude)
     //normalize audio 
 
-    const windowFunction = processor.WindowingFunctions.hamming
-    const windowedAudio = windowFunction(normalizedAudio)
+    const windowedAudio = []
+
+    for (let i = 0; i < audioData.length; i++) {
+        const hammingValue = hammingWindow(audioData.length, i);
+        const windowedValue = audioData[i] * hammingValue;
+        windowedAudio.push(windowedValue);
+      }
      // Apply windowing function 
 
     
     
     const fftSize = 1024
-    const fft = new processor.FFT(fftSize, sampleRate)
-    fft.forward(windowedAudio)
+    let fft = processor.FFT(fftSize, sampleRate)
+    fft = FFT.forward(windowedAudio)
     // Perform FFT analysis
 
-    const frequencyBins = fft.spectrum 
+    const frequencyBins = FFT.s 
 
     return frequencyBins
 

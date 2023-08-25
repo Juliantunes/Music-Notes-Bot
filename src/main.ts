@@ -1,4 +1,4 @@
-import record from 'node-mic-record'
+import * as record from 'node-mic-record'
 import { startRecording, stopRecording,pauseRecording, resumeRecording, deleteRecording } from './utils/utilities'
 import { processAudio } from './audio/preprocessing'
 import { NoteDetection } from './audio/NoteDetection'
@@ -18,6 +18,7 @@ const recordingStream = record.start({
     verbose: true, 
     length: 180
 })
+.pipe(file)
 //calls audio recording process
 
 recordingStream.on('data', (data:string)=> {
@@ -64,4 +65,3 @@ fs.readFile(filePath, (err:Error, audioData: Buffer) => {
     const processedData = processAudio(audioData)
     NoteDetection(processedData)
 })
-

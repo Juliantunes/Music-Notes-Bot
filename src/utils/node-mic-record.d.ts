@@ -1,3 +1,5 @@
 declare module 'node-mic-record'
 declare module 'dsp.js'
 declare module 'tonal'
+declare module 'window-function'
+declare module 'fft-js'
